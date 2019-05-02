@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:mysql://47.105.210.235:3306/qinghua?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: Wy
+    password: 123456
+    filters: wall,mergeStat
+
+#多数据源情况的配置
+guns:
+  muti-datasource:
+    open: false
+    url: jdbc:mysql://47.92.195.202:3306/guns_test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=CTT
+    username: root
+    password: rumaiwang&Root123
+    dataSourceNames:
+    - dataSourceGuns
+    - dataSourceBiz

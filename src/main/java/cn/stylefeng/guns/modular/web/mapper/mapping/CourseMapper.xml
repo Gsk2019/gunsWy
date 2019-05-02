@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.web.mapper.CourseMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.web.entity.Course">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="course_type" property="courseType"/>
+        <result column="course_name" property="courseName"/>
+        <result column="course_image" property="courseImage"/>
+        <result column="price" property="price"/>
+        <result column="course_length" property="courseLength"/>
+        <result column="course_images" property="courseImages"/>
+        <result column="course_desc" property="courseDesc"/>
+        <result column="start_time" property="startTime"/>
+        <result column="course_addr" property="courseAddr"/>
+        <result column="desc_url" property="descUrl"/>
+        <result column="join_url" property="joinUrl"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List2">
+        id, course_type AS courseType, course_name AS courseName,course_image AS courseImage, price ,
+        start_time AS startTime, course_addr AS courseAddr, desc_url AS descUrl, join_url AS joinUrl,create_time AS createTime
+    </sql>
+
+    <!-- 小程序端查询结果列 -->
+    <sql id="Base_Column_List3">
+        id, course_type AS courseType, course_name AS courseName,course_image AS courseImage, price ,
+        start_time AS startTime, course_addr AS courseAddr,desc_images as descImages,course_length as courseLength
+    </sql>
+
+    <sql id="Base_Column_List">
+        id, course_type, course_name,course_image, price ,course_desc, start_time, course_addr , desc_url , join_url,create_time
+    </sql>
+
+    <select id="queryList"  resultType="map">
+        select
+        <include refid="Base_Column_List2"/>
+        from db_course where 1 = 1 and status=1
+        <if test="courseType != null ">
+            and course_type = #{courseType}
+        </if>
+        <if test="courseName != null ">
+            and course_name like  CONCAT('%',#{courseName},'%')
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="queryListApp"  resultType="map">
+        select
+        <include refid="Base_Column_List3"/>
+        from db_course where 1 = 1 and status=1
+        <if test="courseType != null ">
+            and course_type = #{courseType}
+        </if>
+        order by create_time desc limit 0,5
+    </select>
+
+    <select id="queryListAppByType"  resultType="map">
+        select
+        <include refid="Base_Column_List3"/>
+        from db_course where 1 = 1 and status=1
+        <if test="courseType != null ">
+            and course_type = #{courseType}
+        </if>
+        order by create_time desc
+    </select>
+
+</mapper>
