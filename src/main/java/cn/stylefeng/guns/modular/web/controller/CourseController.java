@@ -34,6 +34,7 @@ import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -56,6 +57,8 @@ public class CourseController extends BaseController {
     private CourseService courseService;
     @Autowired
     private TimeTableService timeTableService;
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 跳转到课程管理的首页
@@ -80,6 +83,8 @@ public class CourseController extends BaseController {
 
         //获取分页参数
         Page page = LayuiPageFactory.defaultPage();
+
+        redisTemplate.opsForValue().set("wuyang","11111111111111111111");
 
         //根据条件查询课程
        List<Map<String,Object>>  result = courseService.queryList(page, course.getCourseType(),course.getCourseName());
