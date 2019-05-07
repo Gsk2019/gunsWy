@@ -76,7 +76,7 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
             type: 2,
             title: '修改课程',
             area: ['60%', '80%'],
-            content: Feng.ctxPath + '/course/course_update?id=' + data.id,
+            content: Feng.ctxPath + '/course/course_update/' + data.id,
             end: function () {
                 admin.getTempData('formOk') && table.reload(course.tableId);
             }
@@ -130,8 +130,9 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
         admin.putTempData('formOk', false);
         top.layui.admin.open({
             type: 2,
-            title: '查看课程列表',
-            area: ['90%', '90%'],
+            offset: ['50px', '400px'],
+            title: '查看课程课表',
+            area: ['60%', '80%'],
             content: Feng.ctxPath + '/course/toTimeTable?courseId='+param.id
         });
     };

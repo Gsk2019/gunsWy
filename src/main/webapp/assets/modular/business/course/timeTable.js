@@ -31,8 +31,15 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
         ]];
     };
 
-
-
+    // 渲染表格
+    var tableResult = table.render({
+        elem: '#' + timeTable.tableId,
+        url: Feng.ctxPath + '/course/timeTableList?courseId='+courseId,
+        page: true,
+        height: "full-158",
+        cellMinWidth: 100,
+        cols: timeTable.initColumn()
+    });
 
     // 添加按钮点击事件
     $('#btnAdd').click(function () {
@@ -47,7 +54,7 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
         top.layui.admin.open({
             type: 2,
             title: '添加课表',
-            area: ['60%', '80%'],
+            area: ['50%', '60%'],
             content: Feng.ctxPath + '/course/timeTable_add?courseId='+courseId,
             end: function () {
                 admin.getTempData('formOk') && table.reload(timeTable.tableId);
@@ -87,11 +94,6 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
         }else if (layEvent === 'deleteTimeTable') {
             timeTable.onDeleteTimeTable(data);
         }
-        /*else if (layEvent === 'editTimeTable') {
-            timeTable.onEditCourse(data);
-        }else if(layEvent === 'viewTimeTable'){
-            timeTable.onViewCourse(data);
-        }*/
     });
 
 
@@ -107,29 +109,5 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
             table.exportFile(tableResult.config.id, checkRows.data, 'xls');
         }
     };
-
-    /**
-     * 课表详情
-     */
-    timeTable.timeTableDetail = function (param) {
-        var ajax = new $ax(Feng.ctxPath + "/course/" + param.id, function (data) {
-            Feng.infoDetail("课表详情", data.regularMessage);
-        }, function (data) {
-            Feng.error("获取详情失败!");
-        });
-        ajax.start();
-    };
-
-
-    // 渲染表格
-    var tableResult = table.render({
-        elem: '#' + timeTable.tableId,
-        url: Feng.ctxPath + '/course/timeTableList?courseId='+courseId,
-        page: true,
-        height: "full-158",
-        cellMinWidth: 100,
-        cols: timeTable.initColumn()
-    });
-
 
 });

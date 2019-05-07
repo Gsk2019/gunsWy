@@ -68,4 +68,13 @@
         order by create_time desc
     </select>
 
+    <select id="queryCourseByType"  resultType="map">
+        select id,course_name AS courseName
+        from db_course where 1 = 1 and status=1
+        <if test="courseType != null ">
+            and course_type = #{courseType}
+        </if>
+        order by create_time desc limit 0,20
+    </select>
+
 </mapper>

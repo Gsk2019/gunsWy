@@ -15,13 +15,10 @@
  */
 package cn.stylefeng.guns.modular.web.controller;
 
-import cn.stylefeng.guns.core.common.annotion.BussinessLog;
-import cn.stylefeng.guns.core.common.annotion.Permission;
-import cn.stylefeng.guns.core.common.constant.dictmap.DeptDict;
+import cn.hutool.core.bean.BeanUtil;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
-import cn.stylefeng.guns.modular.system.entity.Dept;
 import cn.stylefeng.guns.modular.web.entity.Course;
 import cn.stylefeng.guns.modular.web.entity.TimeTable;
 import cn.stylefeng.guns.modular.web.service.CourseService;
@@ -84,8 +81,6 @@ public class CourseController extends BaseController {
         //获取分页参数
         Page page = LayuiPageFactory.defaultPage();
 
-        redisTemplate.opsForValue().set("wuyang","11111111111111111111");
-
         //根据条件查询课程
        List<Map<String,Object>>  result = courseService.queryList(page, course.getCourseType(),course.getCourseName());
 
@@ -123,8 +118,8 @@ public class CourseController extends BaseController {
      * @Date 20190502
      */
 //    @Permission
-    @RequestMapping("/course_update")
-    public String courseUpdate(@RequestParam("id") Integer id,Model model) {
+    @RequestMapping("/course_update/{id}")
+    public String courseUpdate(@PathVariable Integer id,Model model) {
 
         if (ToolUtil.isEmpty(id)) {
             throw new RequestEmptyException();
@@ -132,8 +127,10 @@ public class CourseController extends BaseController {
 
         //缓存部门修改前详细信息
         Course course = courseService.getById(id);
-        model.addAttribute("course",course);
+//        model.addAttribute("course",course);
 //        LogObjectHolder.me().set(course);
+        model.addAllAttributes(BeanUtil.beanToMap(course));
+        LogObjectHolder.me().set(course);
         return PREFIX + "course_edit.html";
     }
 
@@ -144,8 +141,9 @@ public class CourseController extends BaseController {
      * @Date 20190502
      */
 //    @BussinessLog(value = "修改课程", key = "simpleName", dict = Course.class)
-    @RequestMapping(value = "/update")
+
 //    @Permission
+    @RequestMapping(value = "/update")
     @ResponseBody
     public ResponseData update(Course course) {
         courseService.editCourse(course);
@@ -164,7 +162,6 @@ public class CourseController extends BaseController {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         courseService.delCourse(id);
-
         return SUCCESS_TIP;
     }
 

@@ -19,5 +19,10 @@ public interface CourseMapper extends BaseMapper<Course> {
 
     List<Map<String,Object>> queryListAppByType(@Param("page") Page page,@Param("courseType") Integer courseType);
 
+    List<Map<String,Object>> queryCourseByType(@Param("courseType") Integer courseType);
+
+
+
+
 
 }

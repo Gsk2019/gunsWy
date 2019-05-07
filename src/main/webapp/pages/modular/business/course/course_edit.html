@@ -9,14 +9,15 @@
         margin-top: 4px;
     }
 </style>
+
 <form id="courseForm" lay-filter="courseForm" class="layui-form model-form">
 
-    <input type="hidden" value="${course.id}" name="id">
+    <input name="id" type="hidden" value="${id}" >
 
     <div class="layui-form-item">
         <label class="layui-form-label">课程名称<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input name="courseName" value="${course.courseName}" placeholder="请输入课程名称" type="text" class="layui-input" lay-verify="required" required/>
+            <input name="courseName" value="${courseName}" placeholder="请输入课程名称" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
 
@@ -39,31 +40,31 @@
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="courseImageBtn">上传图片</button><br>
             <div class="layui-input-block">
-                <img class="layui-upload-img" id="courseImageImg" src="${course.courseImage}">
+                <img class="layui-upload-img" id="courseImageImg" src="${courseImage}">
                 <p id="imageText"></p>
             </div>
         </div>
-        <input type="hidden" name="courseImage"  id="courseImage"  value="${course.courseImage}">
+        <input name="courseImage" type="hidden"   id="courseImage"  value="${courseImage}">
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">课程价格<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input name="price" value="${course.price}" placeholder="请输入课程价格" type="text" class="layui-input" lay-verify="required" required/>
+            <input name="price" value="${price}" placeholder="请输入课程价格" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">开课时间<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input name="startTime" value="${course.startTime}" placeholder="请输入开课时间" type="text" class="layui-input" lay-verify="required" required/>
+            <input name="startTime" value="${startTime}" placeholder="请输入开课时间" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">课程学制<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input name="courseLength" value="${course.courseLength}" placeholder="请输入课程学制" type="text" class="layui-input" lay-verify="required" required/>
+            <input name="courseLength" value="${courseLength}" placeholder="请输入课程学制" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
 
@@ -72,11 +73,11 @@
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="descImagesBtn">上传图片</button><span style="color: red">用于小程序端展示详情，请上传宽度800左右的图片，高度不限</span>
             <div class="layui-input-block">
-                <img class="layui-upload-img" id="descImagesImg" src="${course.descImages}">
+                <img class="layui-upload-img" id="descImagesImg" src="${descImages}">
                 <p id="descImagesText"></p>
             </div>
         </div>
-        <input type="hidden" name="descImages"  id="descImages"  value="${course.descImages}">
+        <input name="descImages" type="hidden"  id="descImages"  value="${descImages}">
     </div>
 
 
@@ -88,7 +89,7 @@
             </button>
         </div>
         <div class="layui-form-mid layui-word-aux" id="descUrlDiv"></div>
-        <input type="hidden" name="descUrl" id="descUrl"  value="${course.descUrl}">
+        <input name="descUrl" type="hidden"  id="descUrl"  value="${descUrl}">
     </div>
 
     <div class="layui-form-item">
@@ -99,7 +100,7 @@
             </button>
         </div>
         <div class="layui-form-mid layui-word-aux" id="joinUrlDiv"></div>
-        <input type="hidden" name="joinUrl" id="joinUrl"  value=">${course.joinUrl}">
+        <input name="joinUrl" type="hidden"  id="joinUrl"  value=">${joinUrl}">
     </div>
 
 <!--    <div class="layui-form-item">

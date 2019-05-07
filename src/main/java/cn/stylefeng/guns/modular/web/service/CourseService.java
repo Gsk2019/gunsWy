@@ -49,6 +49,13 @@ public class CourseService extends ServiceImpl<CourseMapper, Course> {
         return this.baseMapper.queryListAppByType(page,courseType);
     }
 
+    /**
+     * 按分类获取课程列表，不分页
+     */
+    public List<Map<String,Object>> queryCourseByType(Integer courseType) {
+        return this.baseMapper.queryCourseByType(courseType);
+    }
+
 
     /**
      * 添加课程

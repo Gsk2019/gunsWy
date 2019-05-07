@@ -16,56 +16,51 @@
 package cn.stylefeng.guns.modular.web.Api;
 
 import cn.stylefeng.guns.core.util.ApiResponseUtil;
+import cn.stylefeng.guns.modular.web.entity.Apply;
+import cn.stylefeng.guns.modular.web.entity.WxUser;
+import cn.stylefeng.guns.modular.web.service.ApplyService;
 import cn.stylefeng.guns.modular.web.service.LoginService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import io.netty.handler.codec.compression.Snappy;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 
 /**
- * 登录APi
+ * 报名处APi
  *
  * @author gsk
- * @Date 20190429 晚
+ * @Date 201900506晚
  */
 @RestController
-@RequestMapping("/api/login")
-public class LoginApi extends BaseController {
+@RequestMapping("/api/apply")
+public class ApplyApi extends BaseController {
 
     @Autowired
+    private ApplyService applyService;
+    @Autowired
     private LoginService loginService;
-
-
-    /**
-     * 小程序登录
-     *
-     */
-    @PostMapping("")
-    public Object doLogin(  @RequestParam(value = "code",required = true) String code) {
-
-        if (StringUtils.isBlank(code))
-            return ApiResponseUtil.fail409();
-
-       return loginService.doLogin(code);
-    }
 
     /**
      * 用户首次登录是需要更新用户信息
      *
      */
-    @PostMapping("updateWxUser")
-    public Object updateWxUser(  @RequestParam(value = "skey",required = true) String skey,
-                                 @RequestParam(value = "rawData",required = false) String rawData,
-                                 @RequestParam(value = "signature",required = false) String signature,
-                                 @RequestParam(value = "encrypteData",required = false) String encrypteData,
-                                 @RequestParam(value = "iv",required = false) String iv
-                                ) {
+    @PostMapping("")
+    public Object doApply(Apply apply,String skey) {
 
-        if (StringUtils.isBlank(skey))
+        if (apply.getCourseId()==null)
             return ApiResponseUtil.fail409();
 
-        return loginService.updateWxUser(rawData,encrypteData,iv,skey);
+        WxUser wxUser=loginService.getWxUserBySkey(skey);
+        if (wxUser==null)
+            return ApiResponseUtil.fail409();
+        apply.setUserId(wxUser.getId());
+         applyService.doApply(apply);
+         return ApiResponseUtil.ok();
     }
 
 

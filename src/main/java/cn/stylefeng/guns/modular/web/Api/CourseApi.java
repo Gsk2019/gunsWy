@@ -98,5 +98,17 @@ public class CourseApi extends BaseController {
         return ApiResponseUtil.ok(page);
     }
 
+
+    /**
+     * 按分类获取课程列表--供报名页面选择课程使用
+     */
+    @GetMapping("/getCourseByType")
+    public Object getCourseByType( Integer courseType) {
+        //根据条件查询课程
+        List<Map<String,Object>>  result = courseService.queryCourseByType( courseType);
+
+        return ApiResponseUtil.ok(result);
+    }
+
 }
 

@@ -20,7 +20,7 @@ public class WxUser implements Serializable {
     private String skey;//
     private String address;//
     private String avatar;//
-    private Integer gender;//
+    private String gender;//
     private String nick;//
     private Integer status;//0删除 1正常
     private Date createTime;//添加时间
@@ -91,11 +91,11 @@ public class WxUser implements Serializable {
         this.avatar = avatar;
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
+    public void setGender(String gender) {
         this.gender = gender;
     }
 

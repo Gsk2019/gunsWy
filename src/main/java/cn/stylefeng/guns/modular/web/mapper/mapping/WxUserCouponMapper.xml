@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.modular.web.mapper.WxUserCouponMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.modular.web.entity.WxUserCoupon">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="coupon_id" property="couponId"/>
+        <result column="is_use" property="isUse"/>
+        <result column="status" property="status"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="create_time" property="createTime"/>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, user_id AS userId,coupon_id AS couponId,is_use AS isUse,status,create_time AS createTime,update_time as updateTime
+    </sql>
+
+    <!--优惠券领取记录-->
+    <select id="getWxUserCouponList"  resultType="map">
+        SELECT wc.id,wc.is_use isUse,wc.create_time as createTime ,w.nick,c.coupon_name as couponName
+        FROM db_wxuser_coupon wc
+        LEFT JOIN db_wxuser w ON wc.user_id = w.id
+        LEFT JOIN db_coupon c ON wc.coupon_id = c.id
+        WHERE wc.`status`=1
+        order by wc.create_time desc
+    </select>
+
+    <select id="queryByUserIdAndCouponId"  resultType="map">
+        select id
+        from db_wxUser_coupon where 1 = 1 and status=1
+        <if test="userId != null ">
+            and user_id = #{userId}
+        </if>
+        <if test="couponId != null ">
+            and coupon_id = #{couponId}
+        </if>
+    </select>
+
+    <select id="queryByUserId"  resultType="map">
+        SELECT wc.is_use as isUse,c.coupon_name as couponName,c.coupon_money as couponMoney,c.start_time as startTime,c.end_time as endTime
+        FROM db_wxuser_coupon wc LEFT JOIN db_coupon c ON wc.coupon_id=c.id
+        WHERE wc.`status`=1
+        <if test="userId != null ">
+            AND wc.user_id = #{userId}
+        </if>
+    </select>
+
+</mapper>
