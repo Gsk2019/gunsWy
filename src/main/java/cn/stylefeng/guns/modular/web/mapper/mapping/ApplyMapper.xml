@@ -24,8 +24,12 @@
     </sql>
 
     <select id="queryList"  resultType="map">
-        SELECT c.course_name as courseName,a.user_name as userName,a.phone,a.id_card as idCard,a.company,a.man_count as manCount,a.remark,a.create_time as createTime
-        FROM db_apply a LEFT JOIN db_course c ON a.course_id = c.id
+        SELECT c.course_name as courseName,a.user_name as userName,a.phone,a.id_card as idCard,a.company,
+                a.man_count as manCount,a.remark,a.create_time as createTime,
+                u.avatar,u.nick
+        FROM db_apply a
+        LEFT JOIN db_course c ON a.course_id = c.id
+        LEFT JOIN db_wxuser u ON a.user_id = u.id
         WHERE a.`status`=1
         order by a.create_time desc
     </select>

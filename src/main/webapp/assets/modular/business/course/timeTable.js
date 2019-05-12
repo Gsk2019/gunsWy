@@ -63,6 +63,25 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
     };
 
     /**
+     * 点击编辑课表
+     *
+     * @param data 点击按钮时候的行数据
+     */
+    timeTable.onEditCourse = function (data) {
+        admin.putTempData('formOk', false);
+        top.layui.admin.open({
+            type: 2,
+            title: '修改课表',
+            area: ['60%', '80%'],
+            content: Feng.ctxPath + '/course/timeTable_update/' + data.id,
+            end: function () {
+                admin.getTempData('formOk') && table.reload(timeTable.tableId);
+            }
+        });
+    };
+
+
+    /**
      * 点击删除菜单按钮
      *
      * @param data 点击按钮时候的行数据
@@ -93,6 +112,8 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
             timeTable.timeTableDetail(data);
         }else if (layEvent === 'deleteTimeTable') {
             timeTable.onDeleteTimeTable(data);
+        }else if (layEvent === 'editTimeTable') {
+            timeTable.onEditCourse(data);
         }
     });
 

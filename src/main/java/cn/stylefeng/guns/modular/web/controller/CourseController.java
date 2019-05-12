@@ -146,7 +146,24 @@ public class CourseController extends BaseController {
     @RequestMapping(value = "/update")
     @ResponseBody
     public ResponseData update(Course course) {
-        courseService.editCourse(course);
+
+        if (ToolUtil.isOneEmpty(course, course.getId())) {
+            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        }
+        Course old=courseService.getById(course.getId());
+
+        old.setCourseName(course.getCourseName());
+        old.setCourseImage(course.getCourseImage());
+        old.setPrice(course.getPrice());
+        old.setStartTime(course.getStartTime());
+        old.setCourseLength(course.getCourseLength());
+        if (course.getDescImages()!=""){
+            old.setDescImages(course.getDescImages());
+        }
+        old.setDescUrl(course.getDescUrl());
+        old.setCourseAddr(course.getCourseAddr());
+
+        courseService.editCourse(old);
         return SUCCESS_TIP;
     }
 
@@ -250,6 +267,54 @@ public class CourseController extends BaseController {
         }
         timeTableService.delTimeTable(id);
 
+        return SUCCESS_TIP;
+    }
+
+    /**
+     * 跳转到修改课程
+     *
+     * @author gsk
+     * @Date 20190502
+     */
+//    @Permission
+    @RequestMapping("/timeTable_update/{id}")
+    public String timeTableUpdate(@PathVariable Integer id,Model model) {
+
+        if (ToolUtil.isEmpty(id)) {
+            throw new RequestEmptyException();
+        }
+
+        //缓存部门修改前详细信息
+        TimeTable timeTable = timeTableService.getById(id);
+//        model.addAttribute("course",course);
+//        LogObjectHolder.me().set(course);
+        model.addAllAttributes(BeanUtil.beanToMap(timeTable));
+        LogObjectHolder.me().set(timeTable);
+        return PREFIX + "timeTable_edit.html";
+    }
+
+    /**
+     * 修改课表
+     *
+     * @author gsk
+     * @Date 20190502
+     */
+//    @BussinessLog(value = "修改课程", key = "simpleName", dict = Course.class)
+
+//    @Permission
+    @RequestMapping(value = "/updateTimeTable")
+    @ResponseBody
+    public ResponseData updateTimeTable(TimeTable timeTable) {
+
+        if (ToolUtil.isOneEmpty(timeTable, timeTable.getId())) {
+            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        }
+        TimeTable old=timeTableService.getById(timeTable.getId());
+
+        old.setTableName(timeTable.getTableName());
+        old.setTableSummary(timeTable.getTableSummary());
+        old.setTableImages(timeTable.getTableImages());
+        timeTableService.updateById(old);
         return SUCCESS_TIP;
     }
 

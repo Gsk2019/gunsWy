@@ -66,7 +66,12 @@ public class LoginService extends ServiceImpl<WxUserMapper, WxUser> {
             wu.setSkey(skey);
             wxUserMapper.insert(wu);
             isFirst=1;
+        }else{
+            wxUser.setSkey(skey);
+            wxUser.setSessionKey(sessionKey);
+            wxUserMapper.updateById(wxUser);
         }
+
         //根据openid查询skey是否存在
         String skey_redis = (String) redisTemplate.opsForValue().get( openid );
         if(StringUtils.isNotBlank( skey_redis )){

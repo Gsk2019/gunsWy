@@ -169,13 +169,13 @@ public class CouponController extends BaseController {
      */
     @RequestMapping(value = "/update")
     @ResponseBody
-//    @BussinessLog(value = "修改优惠券", key = "title", dict = NoticeMap.class)
     public Object update(Coupon coupon) {
         if (ToolUtil.isOneEmpty(coupon, coupon.getId())) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
         Coupon old = this.couponService.getById(coupon.getId());
         old.setCouponName(coupon.getCouponName());
+
         old.setCouponDesc(coupon.getCouponDesc());
         old.setCouponCount(coupon.getCouponCount());
         old.setCouponMoney(coupon.getCouponMoney());

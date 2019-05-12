@@ -1,4 +1,4 @@
-@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/business/course/timeTable_add.js"]}){
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/business/course/timeTable_edit.js"]}){
 <style type="text/css">
     .layui-upload-img {
         width: 92px;
@@ -11,19 +11,19 @@
 </style>
 <form id="timeTableForm" lay-filter="timeTableForm"  class="layui-form model-form">
 
-    <input type="hidden" name="id" value="${timeTable.id}">
+    <input type="hidden" name="id" value="${id}">
 
     <div class="layui-form-item">
         <label class="layui-form-label">课表名称<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input name="tableName" value="${timeTable.tableName}" placeholder="请输入课表名称" type="text" class="layui-input" lay-verify="required" required/>
+            <input name="tableName" value="${tableName}" placeholder="请输入课表名称" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
 
     <div class="layui-form-item">
         <label class="layui-form-label">课表说明<span style="color: red;">*</span></label>
         <div class="layui-input-block">
-            <input name="tableSummary" value="${timeTable.tableSummary}" placeholder="请输入课表说明" type="text" class="layui-input" lay-verify="required" required/>
+            <input name="tableSummary" value="${tableSummary}" placeholder="请输入课表说明" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
 
@@ -32,11 +32,11 @@
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="tableImagesBtn">上传图片</button><span style="color: red">用于小程序端展示详情，请上传宽度800左右的图片，高度不限</span>
             <div class="layui-input-block">
-                <img class="layui-upload-img" id="tableImagesImg" src="${timeTable.tableImages}">
+                <img class="layui-upload-img" id="tableImagesImg" src="${tableImages}">
                 <p id="tableImagesText"></p>
             </div>
         </div>
-        <input type="hidden" name="tableImages" id="tableImages"  value="${timeTable.tableImages}">
+        <input type="hidden" name="tableImages" id="tableImages"  value="${tableImages}">
     </div>
 
 

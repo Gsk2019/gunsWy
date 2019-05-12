@@ -19,7 +19,7 @@ layui.use(['layer', 'form', 'admin', 'ax','laydate'], function () {
 
     // 表单提交事件
     form.on('submit(btnSubmit)', function (data) {
-        var ajax = new $ax(Feng.ctxPath + "/coupon/update", function (data) {
+        var ajax = new $ax(Feng.ctxPath + "/course2/update", function (data) {
             Feng.success("添加成功！");
 
             //传给上个页面，刷新table用

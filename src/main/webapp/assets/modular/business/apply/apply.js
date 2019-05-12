@@ -20,8 +20,10 @@ layui.use(['layer', 'form', 'table', 'admin', 'ax'], function () {
         return [[
             {type: 'checkbox'},
             {field: 'id', hide: true, sort: true, title: 'id'},
+            {field: 'avatar',height:150, sort: true, title: '微信头像',templet: '<div><img src="{{d.avatar}}" style="height: 100%;width: 100%"/></div>'},
+            {field: 'nick', sort: true, title: '微信昵称'},
             {field: 'userName', sort: true, title: '姓名'},
-            {field: 'courseName', sort: true, title: '课程名称'},
+            {field: 'courseName', sort: true, title: '报名课程'},
             {field: 'phone', sort: true, title: '电话'},
             {field: 'idCard', sort: true, title: '身份证'},
             {field: 'manCount', sort: true, title: '人数'},
