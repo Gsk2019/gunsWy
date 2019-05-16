@@ -1,0 +1,85 @@
+@layout("/common/_container.html",{bg:"bg-white",js:["/assets/modular/business/params/params_edit.js"]}){
+<style type="text/css">
+    .layui-upload-img {
+        width: 92px;
+        height: 92px;
+        margin: 0 10px 10px 0;
+    }
+    .layui-input-block {
+        margin-top: 4px;
+    }
+</style>
+
+<form id="paramsForm" lay-filter="paramsForm" class="layui-form model-form">
+
+    <input type="hidden" name="id" value="${id}">
+
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">参数名称<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="paramName" value="${paramName}" placeholder="请输入参数名称" type="text" class="layui-input" lay-verify="required" required/>
+        </div>
+    </div>-->
+
+    <div class="layui-form-item">
+        <label class="layui-form-label">参数值<span style="color: red;">*</span></label>
+        <div class="layui-input-block">
+            <input name="paramValue" value="${paramValue}" placeholder="请输入参数值" type="text" class="layui-input" />
+        </div>
+    </div>
+
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">选择图片<span style="color: red;">*</span></label>
+        <div class="layui-upload">
+            <button type="button" class="layui-btn" id="paramsImageBtn">上传图片</button><br>
+            <div class="layui-input-block">
+                <img class="layui-upload-img" id="paramImageImg">
+                <p id="imageText"></p>
+            </div>
+        </div>
+        <input type="hidden" name="paramValue" id="paramsValue"  value="">
+    </div>-->
+
+    <div class="layui-form-item text-right">
+        <button class="layui-btn layui-btn-primary" type="button" ew-event="closeDialog">取消</button>
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>保存</button>
+    </div>
+</form>
+@}
+<script>
+   /* layui.use('upload', function() {
+        var $ = layui.jquery
+            , upload = layui.upload;
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#paramsImageBtn'
+            , url: '/file/upload'
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#paramsImageImg').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code != 0) {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+                $('#paramsImage').val(res.src);
+                return layer.msg('图片上传成功');
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+                var imageText = $('#imageText');
+                imageText.html('<span style="color: #FF5722;">上传失败</span> <a class="layui-btn layui-btn-xs demo-reload">重试</a>');
+                imageText.find('.demo-reload').on('click', function () {
+                    uploadInst.upload();
+                });
+            }
+        });
+    })
+*/
+
+
+</script>

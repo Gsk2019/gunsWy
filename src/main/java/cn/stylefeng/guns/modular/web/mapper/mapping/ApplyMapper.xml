@@ -24,7 +24,7 @@
     </sql>
 
     <select id="queryList"  resultType="map">
-        SELECT c.course_name as courseName,a.user_name as userName,a.phone,a.id_card as idCard,a.company,
+        SELECT a.id,c.course_name as courseName,a.user_name as userName,a.phone,a.id_card as idCard,a.company,
                 a.man_count as manCount,a.remark,a.create_time as createTime,
                 u.avatar,u.nick
         FROM db_apply a

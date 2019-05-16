@@ -28,6 +28,7 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
             {field: 'price', sort: true, title: '价格'},
             {field: 'startTime', sort: true, title: '开课时间'},
             {field: 'courseAddr', sort: true, title: '上课地点'},
+            {field: 'sortNo', sort: true, title: '排序值', templet: '#sortNoTpl'},
             {field: 'createTime', sort: true, title: '添加时间'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 100}
         ]];
@@ -178,8 +179,30 @@ layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
         course.search();
     });
 
-
-
-
-
 });
+
+
+
+//修改排序值
+function changeSortNo(obj) {
+
+    layui.use(['layer', 'table', 'ax', 'laydate','admin'], function () {
+        var $ax = layui.ax;
+        var table = layui.table;
+        var course = {
+            tableId: "courseTable" ,  //表格id
+        };
+        var sortNo=obj.value;
+        var id=obj.getAttribute("id");
+        var ajax = new $ax(Feng.ctxPath + "/course/updateSortNo", function () {
+            table.reload(course.tableId);
+        }, function (data) {
+            Feng.error("排序失败!" + data.responseJSON.message + "!");
+        });
+        ajax.set("id", id);
+        ajax.set("sortNo", sortNo);
+        ajax.start();
+    });
+
+
+}

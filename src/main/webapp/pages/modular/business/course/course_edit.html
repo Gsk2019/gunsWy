@@ -10,6 +10,136 @@
     }
 </style>
 
+<style>
+    .upload-thumb {
+        display: block !important;
+        float: left;
+        width: 110px !important;
+        height: 110px !important;
+        position: relative;
+    }
+
+    .upload-thumb img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .img-box, .sku-img-box {
+        overflow: hidden;
+    }
+
+    .off-box, .sku-off-box {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        right: 0;
+        top: 0;
+        line-height: 18px;
+        background-color: #FFF;
+        cursor: pointer;
+        text-align: center;
+    }
+
+    .black-bg {
+        position: absolute;
+        right: 0;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    .hide {
+        display: none;
+    }
+
+    .img-error {
+        color: red;
+        height: 25px;
+        line-height: 25px;
+        display: none;
+    }
+
+    .hint {
+        font-size: 12px;
+        line-height: 16px;
+        color: #BBB;
+        margin-top: 10px;
+    }
+
+    .ncsc-goods-default-pic .goodspic-uplaod .handle {
+        height: 30px;
+        margin: 10px 0;
+    }
+
+    .ncsc-upload-btn, .upload-btn {
+        vertical-align: top;
+        width: 80px;
+        height: 30px;
+        margin: 10px 5px 0 0;
+        display: block;
+        position: relative;
+        z-index: 1;
+    }
+
+    .ncsc-upload-btn {
+        display: inline-block;
+        margin: 0 5px 0;
+        vertical-align: middle;
+    }
+
+    .ncsc-upload-btn span, .upload-btn span {
+        width: 80px;
+        height: 30px;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        cursor: pointer;
+    }
+
+    .ncsc-upload-btn .input-file, .upload-btn .input-file {
+        width: 80px;
+        height: 30px;
+        padding: 0;
+        margin: 0;
+        border: none 0;
+        opacity: 0;
+        filter: alpha(opacity=0);
+        cursor: pointer;
+    }
+
+    .ncsc-upload-btn p, .upload-btn p {
+        font-size: 12px;
+        line-height: 20px;
+        background-color: #009688;
+        text-align: center;
+        color: #fbfbfb;
+        width: 78px;
+        height: 20px;
+        padding: 4px 0;
+        border: solid 1px;
+        border-color: #DCDCDC #DCDCDC #B3B3B3 #DCDCDC;
+        position: absolute;
+        left: 0;
+        top: 0;
+        cursor: pointer;
+        z-index: 1;
+    }
+
+    select, input[type="file"] {
+        height: 30px;
+        line-height: 30px;
+    }
+
+    .base {
+        width: 80%;
+        background-color: #fff;
+        border-radius: 20px;
+        margin: auto;
+    }
+</style>
+
 <form id="courseForm" lay-filter="courseForm" class="layui-form model-form">
 
     <input name="id" value="${id}" type="hidden"  >
@@ -20,20 +150,6 @@
             <input name="courseName" value="${courseName}" placeholder="请输入课程名称" type="text" class="layui-input" lay-verify="required" required/>
         </div>
     </div>
-
-   <!-- <div class="layui-form-item">
-        <label class="layui-form-label">课程类型<span style="color: red;">*</span></label>
-        <div class="layui-input-block">
-            <select name="courseType" lay-verify="required">
-                <option value="">课程类型</option>
-                <option value="1">精品班</option>
-                <option value="2">管理班</option>
-                <option value="3">金融班</option>
-                <option value="4">地产班</option>
-                <option value="5">其它班</option>
-            </select>
-        </div>
-    </div>-->
 
     <div class="layui-form-item">
         <label class="layui-form-label">课程封面<span style="color: red;">*</span></label>
@@ -77,12 +193,37 @@
 
     <div class="layui-form-item">
         <label class="layui-form-label">详情图片<span style="color: red;">*</span></label>
+        <div class="base">
+            <div id="goods_picture_box" class="controls" style="background-color:#FFF;border: 1px solid #E9E9E9;">
+                <div class="ncsc-goods-default-pic">
+                    <div class="goodspic-uplaod" style="padding: 15px;">
+                        <div class='img-box' style="min-height:160px;">
+                            ${imgStr }
+                        </div>
+                        <div class="clear"></div>
+                        <span class="img-error">最少需要一张图片作为商品主图</span>
+                        <p class="hint">上传多张图片，<font color="red">支持同时上传多张图片,多张图片之间可随意调整位置</font>；支持jpg、gif、png格式上传或从图片空间中选择，建议图片大小不超过10M。
+                        </p>
+                        <div class="handle">
+                            <div class="ncsc-upload-btn">
+                                <a href="javascript:void(0);">
+							<span>
+								<input style="cursor:pointer;font-size:0;" type="file" id="fileupload" hidefocus="true" class="input-file" name="file_upload" multiple="multiple"/>
+							</span>
+                                    <p>图片上传</p>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="layui-form-item">
+        <label class="layui-form-label">详情图片<span style="color: red;">*</span></label>
         <div class="layui-upload">
             <button type="button" class="layui-btn" id="descImagesBtn">上传图片</button><span style="color: red">用于小程序端展示详情，请上传宽度800左右的图片，高度不限</span>
-            <!--<div class="layui-input-block">
-                <img class="layui-upload-img" id="descImagesImg" src="${descImages}">
-                <p id="descImagesText"></p>
-            </div>-->
             <div class="layui-input-block">
                 <blockquote class="layui-elem-quote layui-quote-nm" style="margin-top: 10px;">
                     预览图：
@@ -91,23 +232,23 @@
             </div>
         </div>
         <input name="descImages" type="hidden"  id="descImages"  value="">
-    </div>
+    </div>-->
 
 
     <div class="layui-form-item">
         <label class="layui-form-label">招生简章<span style="color: red;">*</span></label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="width: 118px">
             <button type="button" class="layui-btn" id="descUrlButton">
                 <i class="layui-icon">&#xe67c;</i>选择文件
             </button>
         </div>
-        <div class="layui-form-mid layui-word-aux" id="descUrlDiv"></div>
+        <div class="layui-form-mid layui-word-aux" id="descUrlDiv">${descName}</div>
         <input name="descUrl" type="hidden"  id="descUrl"  value="${descUrl}">
     </div>
 
     <!--<div class="layui-form-item">
         <label class="layui-form-label">报名表<span style="color: red;">*</span></label>
-        <div class="layui-input-inline">
+        <div class="layui-input-inline" style="width: 118px">
             <button type="button" class="layui-btn" id="joinUrlButton">
                 <i class="layui-icon">&#xe67c;</i>选择文件
             </button>
@@ -214,7 +355,7 @@
     })
 
     //小程序详情图片上传
-    layui.use('upload', function() {
+   /* layui.use('upload', function() {
         var $ = layui.jquery
             , upload = layui.upload;
 
@@ -225,7 +366,7 @@
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
-                   /* $('#descImagesImg').attr('src', result); //图片链接（base64）*/
+                   /!* $('#descImagesImg').attr('src', result); //图片链接（base64）*!/
                     $('#descImagesImg').append('<img src="'+ result +'" alt="'+ file.name +'" class="layui-upload-img">')
                 });
             }
@@ -254,7 +395,7 @@
                 });
             }
         });
-    })
+    })*/
 
 
  /*   layui.use('layedit', function(){
@@ -271,4 +412,80 @@
         layedit.sync(index)
     });*/
 
+</script>
+
+<script type="text/javascript">
+
+    $(function () {
+        //给图片更换位置事件
+        $('.draggable-element').arrangeable();
+
+        var album_id = $("#album_id").val();
+        // ajax 上传图片
+        var upload_num = 0; // 上传图片成功数量
+        $('#fileupload').fileupload({
+            url: "/file/uploadMany",
+            dataType: 'json',
+            add: function (e, data) {
+                $("#goods_picture_box .img-error").hide();
+                $("#goods_picture_box #default_uploadimg").remove();
+                //显示上传图片框
+                var html = "";
+                $.each(data.files, function (index, file) {
+                    html += '<div class="upload-thumb draggable-element"  nstype="' + file.name + '">';
+                    html += '<img nstype="goods_image" src="${ctxPath}/assets/common/images/uoload_ing.gif">';
+                    html += '<input type="hidden"  class="upload_img_id" name="descImagesArry" nstype="goods_image" value="">';
+                    html += '<div class="black-bg hide">';
+                    html += '<div class="off-box">&times;</div>';
+                    html += '</div>';
+                    html += '</div>';
+                });
+                $(html).appendTo('#goods_picture_box .img-box');
+                //模块可拖动事件
+                $('#goods_picture_box .draggable-element').arrangeable();
+                data.submit();
+            },
+            done: function (e, data) {
+                var param = JSON.parse(data.result);
+                $this = $('#goods_picture_box div[nstype="' + param.origin_file_name + '"]');
+                if (param.state > 0) {
+                    $this.removeAttr("nstype");
+                    $this.children("img").attr("src", param.file_name);
+                    $this.children("input[type='hidden']").val(param.file_id);
+                } else {
+                    $this.remove();
+                    if ($("#goods_picture_box .img-box .upload-thumb").length == 0) {
+                        var img_html = '<div class="upload-thumb" id="default_uploadimg">';
+                        img_html += '<img src="${ctxPath}/assets/common/images/default_goods_image_240.gif">';
+                        img_html += '</div>';
+                        $("#goods_picture_box .img-box").append(img_html);
+                    }
+                    $("#goods_picture_box .img-error").html("请检查您的上传参数配置或上传的文件是否有误").show();
+                }
+            }
+        })
+
+        //图片幕布出现
+        $("#goods_picture_box .img-box").on('mouseenter','.draggable-element', function () {
+            $(this).children(".black-bg").show();
+        });
+        //图片幕布消失
+        $("#goods_picture_box .img-box").on('mouseleave', '.draggable-element',function () {
+            $(this).children(".black-bg").hide();
+        });
+
+        //删除页面图片元素
+        $("#goods_picture_box .img-box").on('click','.off-box', function () {
+            if ($(".img-box .upload-thumb").length == 1) {
+                var html = "";
+                html += '<div class="upload-thumb" id="default_uploadimg">';
+                html += '<img nstype="goods_image" src="${ctxPath}/assets/common/images/default_goods_image_240.gif">';
+                html += '<input type="hidden" name="image_path" id="image_path" nstype="goods_image" value="">';
+                html += '</div>';
+                $(html).appendTo('.img-box');
+            }
+            $(this).parent().parent().remove();
+        });
+
+    });
 </script>

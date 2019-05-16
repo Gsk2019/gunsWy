@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -101,8 +102,10 @@ public class OSSClientUtil {
             InputStream inputStream = file.getInputStream();
             uploadFile2OSS(inputStream, name,filedir);
             String url=getImgUrl(name,filedir);
+            url = URLDecoder.decode(url, "utf-8");
             map.put("url",url) ;
             map.put("name",name) ;
+            inputStream.close();
             return  map;
 //            return url.replace("rmw-image.oss-cn-zhangjiakou.aliyuncs.com","img.rumaiwang.com");
         } catch (Exception e) {

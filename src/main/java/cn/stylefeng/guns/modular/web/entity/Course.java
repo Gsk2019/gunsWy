@@ -27,6 +27,7 @@ public class Course implements Serializable {
     private String descUrl;//招生简章下载地址
     private String joinUrl;//报名表下载地址
     private Integer status;//0删除 1正常
+    private Integer sortNo;//排序值
     private Date createTime;//添加时间
 
     public Integer getId() {
@@ -141,6 +142,14 @@ public class Course implements Serializable {
         this.descImages = descImages;
     }
 
+    public Integer getSortNo() {
+        return sortNo;
+    }
+
+    public void setSortNo(Integer sortNo) {
+        this.sortNo = sortNo;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -155,6 +164,7 @@ public class Course implements Serializable {
                 ", descUrl='" + descUrl + '\'' +
                 ", joinUrl='" + joinUrl + '\'' +
                 ", status='" + status + '\'' +
+                ", sortNo='" + sortNo + '\'' +
                 ", createTime=" + createTime +
                 '}';
     }

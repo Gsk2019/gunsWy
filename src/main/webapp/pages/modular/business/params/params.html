@@ -1,0 +1,46 @@
+@layout("/common/_container.html",{js:["/assets/modular/business/params/params.js"]}){
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">参数列表</span>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                @if(shiro.hasPermission("/params/add")){
+                                <button id="btnAdd" class="layui-btn icon-btn layui-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                @}
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="paramsTable" lay-filter="paramsTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="tableBar">
+    @if(shiro.hasPermission("/params/edit")){
+    <a class="layui-btn layui-btn layui-btn-xs" lay-event="edit">修改</a>
+    @}
+    @if(shiro.hasPermission("/params/delete")){
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+    @}
+</script>
+
+<script type="text/html" id="isShowStr">
+    {{#  if(d.isShow == '1'){ }}
+    <b>显示</b>
+    {{#  } else if(d.isShow == '0'){ }}
+    <b>不显示</b>
+    {{#  } else { }}
+    <b>其它</b>
+    {{#  } }}
+</script>
+
+@}

@@ -30,6 +30,7 @@ import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -127,10 +128,30 @@ public class CourseController extends BaseController {
 
         //缓存部门修改前详细信息
         Course course = courseService.getById(id);
+        String imgStr="<div class=\"upload-thumb\" id=\"default_uploadimg\"><img src=\"/assets/common/images/default_goods_image_240.gif\"></div>";
 //        model.addAttribute("course",course);
 //        LogObjectHolder.me().set(course);
+        String arryStr=course.getDescImages();
+        if (StringUtils.isNotBlank(arryStr)){
+            imgStr="";
+            String[] attrImg=arryStr.split(";");
+            for (int i = 0; i < attrImg.length; i++) {
+                String imgurl=attrImg[i];
+                imgStr+="<div class=\"upload-thumb draggable-element\">"
+                        +"<img nstype=\"goods_image\" src=\""+imgurl+"\">"
+                        +"<input type=\"hidden\" class=\"upload_img_id\" name=\"descImagesArry\" nstype=\"goods_image\" value=\""+imgurl+"\">"
+                        +"<div class=\"black-bg hide\" style=\"display: none;\"><div class=\"off-box\">×</div></div></div>";
+            }
+        }
+        String descName=course.getDescUrl();
+        if (StringUtils.isNotBlank(descName)){
+            descName=descName.substring((descName.indexOf("descFile")+9),descName.lastIndexOf("?"));
+        }
+        model.addAttribute("descName",descName);
+        model.addAttribute("imgStr",imgStr);
         model.addAllAttributes(BeanUtil.beanToMap(course));
         LogObjectHolder.me().set(course);
+
         return PREFIX + "course_edit.html";
     }
 
@@ -163,6 +184,26 @@ public class CourseController extends BaseController {
         old.setDescUrl(course.getDescUrl());
         old.setCourseAddr(course.getCourseAddr());
 
+        courseService.editCourse(old);
+        return SUCCESS_TIP;
+    }
+
+
+    /**
+     * 修改排序值
+     * @author gsk
+     * @Date 20190513
+     */
+    @RequestMapping(value = "/updateSortNo")
+    @ResponseBody
+    public ResponseData updateSortNo(Course course) {
+
+        if (ToolUtil.isOneEmpty(course, course.getId())) {
+            throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
+        }
+        Course old=courseService.getById(course.getId());
+
+        old.setSortNo(course.getSortNo());
         courseService.editCourse(old);
         return SUCCESS_TIP;
     }
@@ -286,8 +327,23 @@ public class CourseController extends BaseController {
 
         //缓存部门修改前详细信息
         TimeTable timeTable = timeTableService.getById(id);
+
+        String imgStr="<div class=\"upload-thumb\" id=\"default_uploadimg\"><img src=\"/assets/common/images/default_goods_image_240.gif\"></div>";
 //        model.addAttribute("course",course);
 //        LogObjectHolder.me().set(course);
+        String arryStr=timeTable.getTableImages();
+        if (StringUtils.isNotBlank(arryStr)){
+            imgStr="";
+            String[] attrImg=arryStr.split(";");
+            for (int i = 0; i < attrImg.length; i++) {
+                String imgurl=attrImg[i];
+                imgStr+="<div class=\"upload-thumb draggable-element\">"
+                        +"<img nstype=\"goods_image\" src=\""+imgurl+"\">"
+                        +"<input type=\"hidden\" class=\"upload_img_id\" name=\"descImagesArry\" nstype=\"goods_image\" value=\""+imgurl+"\">"
+                        +"<div class=\"black-bg hide\" style=\"display: none;\"><div class=\"off-box\">×</div></div></div>";
+            }
+        }
+        model.addAttribute("imgStr",imgStr);
         model.addAllAttributes(BeanUtil.beanToMap(timeTable));
         LogObjectHolder.me().set(timeTable);
         return PREFIX + "timeTable_edit.html";

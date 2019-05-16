@@ -98,5 +98,35 @@ public class FileController extends BaseController {
             return  new JSONObject(map).toString();
         }
     }
+
+
+    /**
+     * 多图上传插件专用
+     */
+    @RequestMapping("/uploadMany")
+    public Object uploadMany(@Param("file_upload") MultipartFile file_upload) {
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String,Object> result = new HashMap<String,Object>();
+
+        try {
+            String dir=OSSClientUtil.COURSE_DESCIMAGES;
+
+            String  origin_file_name=file_upload.getOriginalFilename();
+
+            Map<String,String> mapFile= OSSClientUtil.uploadImg2OssMap(file_upload,dir);
+            String url=mapFile.get("url");
+            result.put("state",1);//0表示成功，1失败
+            result.put("file_name",url.substring(0,url.indexOf("?")));//图片url
+            result.put("origin_file_name",origin_file_name);//图片名称
+            result.put("file_id",url.substring(0,url.indexOf("?")));//图片url
+        }catch (Exception e){
+            result.put("state",0);//0表示成功，1失败
+        }
+        map.put("result",result);
+        return new JSONObject(result).toString();
+    }
+
+
 }
 

@@ -10,6 +10,11 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
 
     // 表单提交事件
     form.on('submit(btnSubmit)', function (data) {
+        var imageStr="";
+        $("input[class='upload_img_id']").each(function(){
+            imageStr=imageStr+$(this).val()+";";
+        });
+
         var ajax = new $ax(Feng.ctxPath + "/course/add", function (data) {
             Feng.success("课程添加成功！");
 
@@ -21,7 +26,9 @@ layui.use(['layer', 'form', 'admin', 'ax'], function () {
         }, function (data) {
             Feng.error("课程添加失败！" + data.responseJSON.message)
         });
-        ajax.set(data.field);
+        var postData=data.field;
+        postData.descImages=imageStr;
+        ajax.set(postData);
         ajax.start();
     });
 });

@@ -16,13 +16,15 @@
         <result column="course_addr" property="courseAddr"/>
         <result column="desc_url" property="descUrl"/>
         <result column="join_url" property="joinUrl"/>
+        <result column="status" property="status"/>
+        <result column="sort_no" property="sortNo"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List2">
         id, course_type AS courseType, course_name AS courseName,course_image AS courseImage, price ,
-        start_time AS startTime, course_addr AS courseAddr, desc_url AS descUrl, join_url AS joinUrl,create_time AS createTime
+        start_time AS startTime, course_addr AS courseAddr, desc_url AS descUrl, join_url AS joinUrl,create_time AS createTime,sort_no as sortNo
     </sql>
 
     <!-- 小程序端查询结果列 -->
@@ -32,7 +34,7 @@
     </sql>
 
     <sql id="Base_Column_List">
-        id, course_type, course_name,course_image, price ,course_desc, start_time, course_addr , desc_url , join_url,create_time
+        id, course_type, course_name,course_image, price ,course_desc, start_time, course_addr , desc_url , join_url,create_time,sort_no as sortNo
     </sql>
 
     <select id="queryList"  resultType="map">
@@ -45,7 +47,7 @@
         <if test="courseName != null ">
             and course_name like  CONCAT('%',#{courseName},'%')
         </if>
-        order by create_time desc
+        order by sort_no desc,create_time desc
     </select>
 
     <select id="queryListApp"  resultType="map">
@@ -55,7 +57,7 @@
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>
-        order by create_time desc limit 0,5
+        order by sort_no desc,create_time desc limit 0,5
     </select>
 
     <select id="queryListAppByType"  resultType="map">
@@ -65,7 +67,7 @@
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>
-        order by create_time desc
+        order by sort_no desc ,create_time desc
     </select>
 
     <select id="queryCourseByType"  resultType="map">
@@ -74,7 +76,7 @@
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>
-        order by create_time desc limit 0,20
+        order by sort_no desc,create_time desc limit 0,20
     </select>
 
 </mapper>
