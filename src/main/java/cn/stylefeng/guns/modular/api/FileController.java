@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns.modular.api;
 
+import cn.stylefeng.guns.core.util.FileUploadUtil;
 import cn.stylefeng.guns.core.util.OSSClientUtil;
 import cn.stylefeng.roses.core.base.controller.BaseController;
 import com.alibaba.fastjson.JSONObject;
@@ -120,6 +121,52 @@ public class FileController extends BaseController {
             result.put("file_name",url.substring(0,url.indexOf("?")));//图片url
             result.put("origin_file_name",origin_file_name);//图片名称
             result.put("file_id",url.substring(0,url.indexOf("?")));//图片url
+        }catch (Exception e){
+            result.put("state",0);//0表示成功，1失败
+        }
+        map.put("result",result);
+        return new JSONObject(result).toString();
+    }
+
+
+    /**
+     * 图片上传到本地
+     */
+    @RequestMapping("/uploadLocal")
+    public Object uploadLocal(@Param("type") String type,@Param("file") MultipartFile file) {
+
+        Map<String,Object> map = new HashMap<String,Object>();
+
+        try {
+            String url= "/images/"+FileUploadUtil.upload(file,"D://images//");
+            map.put("code",0);//0表示成功，1失败
+            map.put("src",url);//图片url
+            map.put("name","");//图片名称
+            return new JSONObject(map).toString();
+        }catch (Exception e){
+            map.put("code",1);
+            map.put("src","");
+            return  new JSONObject(map).toString();
+        }
+    }
+
+    /**
+     * 多图上传到本地插件专用
+     */
+    @RequestMapping("/uploadManyLocal")
+    public Object uploadManyLocal(@Param("file_upload") MultipartFile file_upload) {
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        Map<String,Object> result = new HashMap<String,Object>();
+
+        try {
+
+            String  origin_file_name=file_upload.getOriginalFilename();
+            String url= "/images/"+FileUploadUtil.upload(file_upload,"D://images//");
+            result.put("state",1);//0表示成功，1失败
+            result.put("file_name",url);//图片url
+            result.put("origin_file_name",origin_file_name);//图片名称
+            result.put("file_id",url);//图片url
         }catch (Exception e){
             result.put("state",0);//0表示成功，1失败
         }

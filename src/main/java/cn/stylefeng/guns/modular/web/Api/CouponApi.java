@@ -54,9 +54,12 @@ public class CouponApi extends BaseController {
      *
      */
     @GetMapping("")
-    public Object getCouponList() {
+    public Object getCouponList(Integer site) {
 
-        List<Coupon> couponList=couponService.list();
+        if (site==null)
+            ApiResponseUtil.fail409();
+
+        List<Map<String, Object>> couponList=couponService.getListApp(site);
          return ApiResponseUtil.ok(couponList);
     }
 
@@ -66,13 +69,16 @@ public class CouponApi extends BaseController {
      *
      */
     @PostMapping("getCoupon")
-    public Object getCoupon(String skey,Integer couponId) {
+    public Object getCoupon(String skey,Integer couponId,Integer site) {
+
+        if (site==null)
+            return ApiResponseUtil.fail409();
 
         WxUser wxUser=loginService.getWxUserBySkey(skey);
         if (wxUser==null)
-            return ApiResponseUtil.fail409();
+            return ApiResponseUtil.fail401();
 
-        boolean flag=wxUserCouponService.getCoupon(wxUser,couponId);
+        boolean flag=wxUserCouponService.getCoupon(wxUser,couponId,site);
         if (!flag)
             return ApiResponseUtil.fail(-1,"不能重复领取");
         return ApiResponseUtil.ok();
@@ -85,14 +91,17 @@ public class CouponApi extends BaseController {
      * @return
      */
     @GetMapping("getMyCouponList")
-    public Object getCoupon(String skey) {
+    public Object getCoupon(String skey,Integer site) {
+
+        if (site==null)
+            return ApiResponseUtil.fail409();
 
         if (StringUtils.isBlank(skey))
             return ApiResponseUtil.fail409();
 
         WxUser wxUser=loginService.getWxUserBySkey(skey);
         if (wxUser==null)
-            return ApiResponseUtil.fail409();
+            return ApiResponseUtil.fail401();
 
         List<Map> myCouponList=wxUserCouponService.getCouponByUserId(wxUser);
         return ApiResponseUtil.ok(myCouponList);

@@ -44,4 +44,6 @@ mybatis-plus:
 
 
 log:
-  path: guns-logs
+  config: classpath:logback-spring.xml
+logging:
+  config: classpath:logback-spring.xml

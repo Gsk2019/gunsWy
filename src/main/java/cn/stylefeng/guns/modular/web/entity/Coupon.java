@@ -22,6 +22,7 @@ public class Coupon implements Serializable {
     private Integer couponMoney;//优惠券金额
     private String couponDesc;//使用说明
     private Integer status;//0删除 1正常
+    private Integer site;//0删除 1正常
     private Date createTime;//添加时间
     private Date updateTime;//修改时间
 
@@ -107,6 +108,14 @@ public class Coupon implements Serializable {
         this.couponDesc = couponDesc;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "Coupon{" +
@@ -118,6 +127,7 @@ public class Coupon implements Serializable {
                 ", couponMoney=" + couponMoney +
                 ", couponDesc='" + couponDesc + '\'' +
                 ", status=" + status +
+                ", site=" + site +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

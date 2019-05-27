@@ -42,12 +42,15 @@ public class LoginApi extends BaseController {
      *
      */
     @PostMapping("")
-    public Object doLogin(  @RequestParam(value = "code",required = true) String code) {
+    public Object doLogin(  @RequestParam(value = "code",required = true) String code,Integer site) {
+
+        if (site==null)
+            return ApiResponseUtil.fail409();
 
         if (StringUtils.isBlank(code))
             return ApiResponseUtil.fail409();
 
-       return loginService.doLogin(code);
+       return loginService.doLogin(code,site);
     }
 
     /**

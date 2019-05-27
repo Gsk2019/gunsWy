@@ -97,7 +97,7 @@ public class OSSClientUtil {
         String originalFilename = file.getOriginalFilename();
         String substring = originalFilename.substring(originalFilename.lastIndexOf(".")).toLowerCase();
         Random random = new Random();
-        String name = originalFilename.substring(0,originalFilename.indexOf("."))+"_"+random.nextInt(10000) + System.currentTimeMillis() + substring;
+        String name = random.nextInt(10000) + System.currentTimeMillis() + substring;//originalFilename.substring(0,originalFilename.indexOf("."))+"_"+
         try {
             InputStream inputStream = file.getInputStream();
             uploadFile2OSS(inputStream, name,filedir);
@@ -106,6 +106,7 @@ public class OSSClientUtil {
             map.put("url",url) ;
             map.put("name",name) ;
             inputStream.close();
+
             return  map;
 //            return url.replace("rmw-image.oss-cn-zhangjiakou.aliyuncs.com","img.rumaiwang.com");
         } catch (Exception e) {
@@ -229,6 +230,8 @@ public class OSSClientUtil {
             objectMetadata.setContentDisposition("inline;filename=" + fileName);
             // 上传文件
             PutObjectResult putResult = ossClient.putObject(bucketName, filedir + fileName, instream, objectMetadata);
+            instream.close();
+
             ret = putResult.getETag();
         } catch (IOException e) {
             logger.error(e.getMessage(), e);

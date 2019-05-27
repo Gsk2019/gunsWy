@@ -19,6 +19,7 @@ public class WxUserCoupon implements Serializable {
     private Integer couponId;//
     private Integer isUse;//
     private Integer status;//0删除 1正常
+    private Integer site;//1北清中心 2北清在线
     private Date createTime;//添加时间
     private Date updateTime;//修改时间
 
@@ -80,6 +81,14 @@ public class WxUserCoupon implements Serializable {
         this.isUse = isUse;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "WxUserCoupon{" +
@@ -88,6 +97,7 @@ public class WxUserCoupon implements Serializable {
                 ", couponId=" + couponId +
                 ", isUse=" + isUse +
                 ", status=" + status +
+                ", site=" + site +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

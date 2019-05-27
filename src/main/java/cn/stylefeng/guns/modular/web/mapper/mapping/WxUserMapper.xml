@@ -13,6 +13,7 @@
         <result column="gender" property="gender"/>
         <result column="nick" property="nick"/>
         <result column="status" property="status"/>
+        <result column="site" property="site"/>
         <result column="update_time" property="updateTime"/>
         <result column="create_time" property="createTime"/>
     </resultMap>

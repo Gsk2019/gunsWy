@@ -24,7 +24,7 @@
     <div class="layui-form-item">
         <label class="layui-form-label">选择图片<span style="color: red;">*</span></label>
         <div class="layui-upload">
-            <button type="button" class="layui-btn" id="paramsImageBtn">上传图片</button><br>
+            <button type="button" class="layui-btn" id="paramsImageBtn">上传图片</button><span style="color: red">请上传750*500的图片,否则不美观</span><br>
             <div class="layui-input-block">
                 <img class="layui-upload-img" id="paramImageImg" src="${paramValue}">
                 <p id="imageText"></p>
@@ -46,7 +46,7 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#paramsImageBtn'
-            , url: '/file/upload'
+            , url: '/file/uploadLocal'
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {

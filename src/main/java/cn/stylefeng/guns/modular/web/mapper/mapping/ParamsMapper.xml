@@ -21,11 +21,39 @@
         param_type AS paramType,sort_no as sortNo,create_time AS createTime
     </sql>
 
+    <select id="queryListAdmin"  resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from db_params where 1 = 1 and status=1 and site=#{site}
+        order by sort_no desc,create_time desc
+    </select>
+
     <select id="queryList"  resultType="map">
         select
         <include refid="Base_Column_List"/>
-        from db_params where 1 = 1 and status=1
+        from db_params where 1 = 1 and status=1 and site=#{site}
+        <if test="site==1">
+            and  id >0 and id &lt; 8
+        </if>
+        <if test="site==2">
+            and  id >12 and id &lt; 20
+        </if>
         order by sort_no desc,create_time desc
     </select>
+
+    <select id="queryListLunBo"  resultType="map">
+        select
+        <include refid="Base_Column_List"/>
+        from db_params where 1 = 1 and status=1 and site=#{site}
+        <if test="site==1">
+            and  id >7 and id &lt; 13
+        </if>
+        <if test="site==2">
+            and  id >19 and id &lt; 25
+        </if>
+        order by sort_no desc,create_time desc
+    </select>
+
+
 
 </mapper>

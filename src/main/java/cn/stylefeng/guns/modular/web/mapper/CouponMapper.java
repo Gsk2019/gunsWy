@@ -18,6 +18,11 @@ public interface CouponMapper extends BaseMapper<Coupon> {
     /**
      * 后台获取列表
      */
-    Page<Map<String, Object>> queryList(@Param("page") Page page);
+    Page<Map<String, Object>> queryList(@Param("page") Page page,@Param("site") Integer site);
+
+    /**
+     * 小程序获取列表
+     */
+    List<Map<String, Object>> queryList(@Param("site") Integer site);
 
 }

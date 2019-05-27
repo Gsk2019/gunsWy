@@ -11,6 +11,7 @@
         <result column="table_images" property="tableImages"/>
         <result column="table_desc" property="tableDesc"/>
         <result column="status" property="status"/>
+        <result column="site" property="site"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 

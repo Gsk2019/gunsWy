@@ -19,6 +19,7 @@ import cn.hutool.core.bean.BeanUtil;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.web.entity.Course;
 import cn.stylefeng.guns.modular.web.entity.TimeTable;
 import cn.stylefeng.guns.modular.web.service.CourseService;
@@ -82,8 +83,13 @@ public class CourseController extends BaseController {
         //获取分页参数
         Page page = LayuiPageFactory.defaultPage();
 
+        Long did=ShiroKit.getUser().getDeptId();//部门id
+        Integer site=1;
+        if (did.equals(1129594787394957314L))//北清总裁在线  1129593519301668865 北清总裁中心
+            site=2;
+
         //根据条件查询课程
-       List<Map<String,Object>>  result = courseService.queryList(page, course.getCourseType(),course.getCourseName());
+       List<Map<String,Object>>  result = courseService.queryList(page, course.getCourseType(),course.getCourseName(),site);
 
         page.setRecords(new CourseWrapper(result).wrap());
         return LayuiPageFactory.createPageInfo(page);
@@ -108,6 +114,12 @@ public class CourseController extends BaseController {
 //    @BussinessLog(value = "菜单课程", key = "name", dict = MenuDict.class)
     @ResponseBody
     public ResponseData add(Course course) {
+        Long did=ShiroKit.getUser().getDeptId();//部门id
+        Integer site=1;
+        if (did.equals(1129594787394957314L))//北清总裁在线  1129593519301668865 北清总裁中心
+            site=2;
+
+        course.setSite(site);
         this.courseService.addCourse(course);
         return SUCCESS_TIP;
     }

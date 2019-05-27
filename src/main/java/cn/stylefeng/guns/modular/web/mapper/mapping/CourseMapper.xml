@@ -17,6 +17,7 @@
         <result column="desc_url" property="descUrl"/>
         <result column="join_url" property="joinUrl"/>
         <result column="status" property="status"/>
+        <result column="site" property="site"/>
         <result column="sort_no" property="sortNo"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
@@ -40,7 +41,7 @@
     <select id="queryList"  resultType="map">
         select
         <include refid="Base_Column_List2"/>
-        from db_course where 1 = 1 and status=1
+        from db_course where 1 = 1 and status=1 and site=#{site}
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>
@@ -53,7 +54,7 @@
     <select id="queryListApp"  resultType="map">
         select
         <include refid="Base_Column_List3"/>
-        from db_course where 1 = 1 and status=1
+        from db_course where 1 = 1 and status=1 and site=#{site}
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>
@@ -63,7 +64,7 @@
     <select id="queryListAppByType"  resultType="map">
         select
         <include refid="Base_Column_List3"/>
-        from db_course where 1 = 1 and status=1
+        from db_course where 1 = 1 and status=1 and site=#{site}
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>
@@ -72,7 +73,7 @@
 
     <select id="queryCourseByType"  resultType="map">
         select id,course_name AS courseName
-        from db_course where 1 = 1 and status=1
+        from db_course where 1 = 1 and status=1 and site=#{site}
         <if test="courseType != null ">
             and course_type = #{courseType}
         </if>

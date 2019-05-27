@@ -31,31 +31,36 @@ public class CourseService extends ServiceImpl<CourseMapper, Course> {
     /**
      * 后台分页获取课程列表
      */
-    public List<Map<String,Object>> queryList(Page page,  Integer courseType, String courseName) {
-        return this.baseMapper.queryList(page,courseType,courseName);
+    public List<Map<String,Object>> queryList(Page page,  Integer courseType, String courseName,Integer site) {
+        return this.baseMapper.queryList(page,courseType,courseName,site);
     }
 
     /**
      * 小程序首页获取分类列表
      */
-    public List<Map<String,Object>> queryListApp(Integer courseType) {
-        return this.baseMapper.queryListApp(courseType);
+    public List<Map<String,Object>> queryListApp(Integer courseType,Integer site) {
+
+        List<Map<String,Object>> listMap=this.baseMapper.queryListApp(courseType, site);
+        dealMapList(listMap);
+        return listMap;
     }
 
     /**
      * 小程序按分类分页获取列表
      */
-    public List<Map<String,Object>> queryListAppByType(Page page,Integer courseType) {
-        return this.baseMapper.queryListAppByType(page,courseType);
+    public List<Map<String,Object>> queryListAppByType(Page page,Integer courseType,Integer site) {
+
+        List<Map<String,Object>> listMap=this.baseMapper.queryListAppByType(page,courseType, site);
+        dealMapList(listMap);
+        return listMap;
     }
 
     /**
      * 按分类获取课程列表，不分页
      */
-    public List<Map<String,Object>> queryCourseByType(Integer courseType) {
-        return this.baseMapper.queryCourseByType(courseType);
+    public List<Map<String,Object>> queryCourseByType(Integer courseType,Integer site) {
+        return this.baseMapper.queryCourseByType(courseType, site);
     }
-
 
     /**
      * 添加课程
@@ -67,7 +72,6 @@ public class CourseService extends ServiceImpl<CourseMapper, Course> {
         course.setCreateTime(new Date());
         this.save(course);
     }
-
 
     /**
      * 修改课程
@@ -95,6 +99,36 @@ public class CourseService extends ServiceImpl<CourseMapper, Course> {
         Course course=courseMapper.selectById(id);
         course.setStatus(0);
         courseMapper.updateById(course);
+    }
+
+    public  List<Map<String,Object>> dealMapList(List<Map<String,Object>> mapList){
+
+        for (int i = 0; i < mapList.size(); i++) {
+            Map<String, Object> map =  mapList.get(i);
+            for (String key : map.keySet()) {
+                if("courseImage".equals(key)){
+                    if(map.get(key).toString().indexOf("http")==-1){
+                        map.put(key,"https://app.gaoduanpeixun.cn"+map.get(key));
+                    }
+                }
+                if("descImages".equals(key)){
+                    String strs=map.get(key).toString();
+                    String[] strArr=strs.split(";");
+                    String newStr="";
+                    for (int j = 0; j < strArr.length; j++) {
+                        if (strArr[j].indexOf("http")==-1){
+                            newStr+="https://app.gaoduanpeixun.cn"+strArr[j]+";";
+                        }else {
+                            newStr+=strArr[j]+";";
+                        }
+                    }
+                    if(!"".equals(newStr)){
+                        map.put(key,newStr);
+                    }
+                }
+            }
+        }
+        return mapList;
     }
 
 }

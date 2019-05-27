@@ -12,6 +12,7 @@
         <result column="coupon_money" property="couponMoney"/>
         <result column="coupon_desc" property="couponDesc"/>
         <result column="status" property="status"/>
+        <result column="site" property="site"/>
         <result column="update_time" property="updateTime"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
@@ -19,16 +20,14 @@
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,coupon_name AS couponName ,coupon_count AS couponCount,start_time AS startTime,end_time AS endTime,coupon_money AS couponMoney,
-        coupon_desc as  couponDesc,status,create_time AS createTime,update_time as updateTime
+        coupon_desc as  couponDesc,status,site,create_time AS createTime,update_time as updateTime
     </sql>
 
     <select id="queryList"  resultType="map">
         select
         <include refid="Base_Column_List"/>
-        from db_coupon where 1 = 1 and status=1
+        from db_coupon where 1 = 1 and status=1 and site=#{site}
         order by create_time desc
     </select>
-
-
 
 </mapper>

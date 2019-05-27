@@ -21,6 +21,7 @@ import cn.stylefeng.guns.core.common.constant.Const;
 import cn.stylefeng.guns.core.common.exception.BizExceptionEnum;
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
 import cn.stylefeng.guns.core.log.LogObjectHolder;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.system.entity.OperationLog;
 import cn.stylefeng.guns.modular.system.warpper.LogWrapper;
 import cn.stylefeng.guns.modular.web.entity.Coupon;
@@ -78,7 +79,11 @@ public class CouponController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list() {
-        Page<Map<String, Object>> list = this.couponService.getList();
+        Long did=ShiroKit.getUser().getDeptId();//部门id
+        Integer site=1;
+        if (did.equals(1129594787394957314L))//北清总裁在线  1129593519301668865 北清总裁中心
+            site=2;
+        Page<Map<String, Object>> list = this.couponService.getList(site);
 //        Page<Map<String, Object>> wrap = new NoticeWrapper(list).wrap();
         return LayuiPageFactory.createPageInfo(list);
     }
@@ -121,6 +126,11 @@ public class CouponController extends BaseController {
         if (ToolUtil.isOneEmpty(coupon, coupon.getCouponName())) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
+        Long did=ShiroKit.getUser().getDeptId();//部门id
+        Integer site=1;
+        if (did.equals(1129594787394957314L))//北清总裁在线  1129593519301668865 北清总裁中心
+            site=2;
+        coupon.setSite(site);
         coupon.setCreateTime(new Date());
         coupon.setUpdateTime(new Date());
         this.couponService.save(coupon);
@@ -206,7 +216,11 @@ public class CouponController extends BaseController {
     @RequestMapping(value = "/getWxUserCouponList")
     @ResponseBody
     public Object getWxUserCouponList() {
-        Page<Map<String, Object>> list = wxUserCouponService.getWxUserCouponList();
+        Long did=ShiroKit.getUser().getDeptId();//部门id
+        Integer site=1;
+        if (did.equals(1129594787394957314L))//北清总裁在线  1129593519301668865 北清总裁中心
+            site=2;
+        Page<Map<String, Object>> list = wxUserCouponService.getWxUserCouponList(site);
 //        Page<Map<String, Object>> wrap = new NoticeWrapper(list).wrap();
         return LayuiPageFactory.createPageInfo(list);
     }

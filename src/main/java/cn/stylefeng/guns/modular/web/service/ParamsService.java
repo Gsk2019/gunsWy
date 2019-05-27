@@ -30,8 +30,8 @@ public class ParamsService extends ServiceImpl<ParamsMapper, Params> {
     /**
      * 后台分页获取列表
      */
-    public List<Map<String,Object>> queryList(Page page) {
-        return this.baseMapper.queryList(page);
+    public List<Map<String,Object>> queryList(Page page,Integer site) {
+        return this.baseMapper.queryListAdmin(page,site);
     }
 
     /**
@@ -78,4 +78,47 @@ public class ParamsService extends ServiceImpl<ParamsMapper, Params> {
         paramsMapper.updateById(params);
     }
 
+
+    /**
+     * 前台获取轮播图列表
+     */
+    public List<Map<String,Object>> queryListLunBo(Integer site ) {
+        List<Map<String,Object>> listMap=this.baseMapper.queryListLunBo(site);
+        for (int i = 0; i < listMap.size(); i++) {
+            Map<String, Object> map =  listMap.get(i);
+            //遍历map中的键
+            for (String key : map.keySet()) {
+                if (map.get(key).toString().indexOf("http")==-1){
+                    map.put(key,"https://app.gaoduanpeixun.cn"+map.get(key));
+                }
+            }
+        }
+        return listMap;
+    }
+
+    /**
+     * 前台获取列表
+     */
+    public List<Map<String,Object>> queryList(Integer site) {
+
+        List<Map<String,Object>> MapList=this.baseMapper.queryList(site);
+        dealMapList(MapList);
+        return MapList;
+    }
+
+
+    public  List<Map<String,Object>> dealMapList(List<Map<String,Object>> mapList){
+
+        for (int i = 0; i < mapList.size(); i++) {
+            Map<String, Object> map =  mapList.get(i);
+            for (String key : map.keySet()) {
+                if("paramValue".equals(key)){
+                    if(map.get(key).toString().indexOf("http")==-1){
+                        map.put(key,"https://app.gaoduanpeixun.cn"+map.get(key));
+                    }
+                }
+            }
+        }
+        return mapList;
+    }
 }

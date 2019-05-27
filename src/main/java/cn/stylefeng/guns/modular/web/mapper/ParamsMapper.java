@@ -12,7 +12,11 @@ public interface ParamsMapper extends BaseMapper<Params> {
     /**
      * 获取列表
      */
-    List<Map<String,Object>> queryList(@Param("page") Page page);
+    List<Map<String,Object>> queryListAdmin(@Param("page") Page page,@Param("site") Integer site);
+
+    List<Map<String,Object>> queryListLunBo(@Param("site") Integer site);
+
+    List<Map<String,Object>> queryList(@Param("site") Integer site);
 
 
 }

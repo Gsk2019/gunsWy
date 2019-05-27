@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -44,10 +45,27 @@ public class ParamsApi extends BaseController {
      *
      */
     @GetMapping("")
-    public Object getCouponList() {
+    public Object getCouponList(Integer site) {
 
-        List<Params> couponList=paramsService.list();
+        if (site==null)
+            ApiResponseUtil.fail409();
+
+        List<Map<String,Object>> couponList=paramsService.queryList(site);
          return ApiResponseUtil.ok(couponList);
+    }
+
+    /**
+     * 获取轮播图列表
+     *
+     */
+    @GetMapping("getBannerList")
+    public Object getBannerList(Integer site) {
+
+        if (site==null)
+            return ApiResponseUtil.fail409();
+
+        List<Map<String,Object>> bannerList=paramsService.queryListLunBo(site);
+        return ApiResponseUtil.ok(bannerList);
     }
 
 }

@@ -49,15 +49,18 @@ public class CourseApi extends BaseController {
      * 小程序首页获取数据接口
      */
     @GetMapping("/index")
-    public Object index( ) {
+    public Object index( Integer site) {
+
+        if (site==null)
+            ApiResponseUtil.fail409();
 
         Map<String ,Object> map=new HashMap<>();
 
-        List<Map<String,Object>> list1=courseService.queryListApp(1);
-        List<Map<String,Object>> list2=courseService.queryListApp(2);
-        List<Map<String,Object>> list3=courseService.queryListApp(3);
-        List<Map<String,Object>> list4=courseService.queryListApp(4);
-        List<Map<String,Object>> list5=courseService.queryListApp(5);
+        List<Map<String,Object>> list1=courseService.queryListApp(1,site);
+        List<Map<String,Object>> list2=courseService.queryListApp(2,site);
+        List<Map<String,Object>> list3=courseService.queryListApp(3,site);
+        List<Map<String,Object>> list4=courseService.queryListApp(4,site);
+        List<Map<String,Object>> list5=courseService.queryListApp(5,site);
         map.put("list1",list1);
         map.put("list3",list3);
         map.put("list2",list2);
@@ -71,12 +74,15 @@ public class CourseApi extends BaseController {
      * 按分类分页获取课程列表
      */
     @GetMapping("/getByType")
-    public Object getByType( Integer courseType) {
+    public Object getByType( Integer courseType,Integer site) {
+
+        if (site==null)
+            ApiResponseUtil.fail409();
 
         //获取分页参数
         Page page = LayuiPageFactory.defaultPage();
         //根据条件查询课程
-        List<Map<String,Object>>  result = courseService.queryListAppByType(page, courseType);
+        List<Map<String,Object>>  result = courseService.queryListAppByType(page, courseType,site);
         page.setRecords(new CourseWrapper(result).wrap());
 
         return ApiResponseUtil.ok(page);
@@ -84,7 +90,7 @@ public class CourseApi extends BaseController {
 
 
     /**
-     * 按课程分页获取课课表列表
+     * 按课程分页获取课表列表
      */
     @GetMapping("/getTimeTableByCourseId")
     public Object getTimeTableByCourseId( Integer courseId) {
@@ -103,9 +109,13 @@ public class CourseApi extends BaseController {
      * 按分类获取课程列表--供报名页面选择课程使用
      */
     @GetMapping("/getCourseByType")
-    public Object getCourseByType( Integer courseType) {
+    public Object getCourseByType( Integer courseType,Integer site) {
+
+        if (site==null)
+            ApiResponseUtil.fail409();
+
         //根据条件查询课程
-        List<Map<String,Object>>  result = courseService.queryCourseByType( courseType);
+        List<Map<String,Object>>  result = courseService.queryCourseByType( courseType,site);
 
         return ApiResponseUtil.ok(result);
     }

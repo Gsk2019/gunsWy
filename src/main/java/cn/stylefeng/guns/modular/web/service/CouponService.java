@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,9 +44,19 @@ public class CouponService extends ServiceImpl<CouponMapper, Coupon> {
      * @author gsk
      * @Date 20190507
      */
-    public Page<Map<String, Object>> getList() {
+    public Page<Map<String, Object>> getList(Integer site) {
         Page page = LayuiPageFactory.defaultPage();
-        return this.baseMapper.queryList(page);
+        return this.baseMapper.queryList(page,site);
+    }
+
+    /**
+     * 后台获取列表
+     *
+     * @author gsk
+     * @Date 20190507
+     */
+    public List<Map<String, Object>> getListApp(Integer site) {
+        return this.baseMapper.queryList(site);
     }
 
 

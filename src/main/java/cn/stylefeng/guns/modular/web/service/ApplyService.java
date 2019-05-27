@@ -24,6 +24,7 @@ public class ApplyService extends ServiceImpl<ApplyMapper, Apply> {
 
     @Resource
     private ApplyMapper applyMapper;
+
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
@@ -41,9 +42,9 @@ public class ApplyService extends ServiceImpl<ApplyMapper, Apply> {
      * @param
      * @return
      */
-    public Page<Map<String, Object>> queryList(){
+    public Page<Map<String, Object>> queryList(Integer site){
         Page page = LayuiPageFactory.defaultPage();
 
-        return  this.baseMapper.queryList(page);
+        return  applyMapper.queryList(page,site);
     }
 }

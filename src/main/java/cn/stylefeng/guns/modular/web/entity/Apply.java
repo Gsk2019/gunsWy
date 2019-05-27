@@ -25,6 +25,7 @@ public class Apply implements Serializable {
     private Integer manCount;//
     private String remark;//
     private Integer status;//0删除 1正常
+    private Integer site;//1北清总裁中心  2北清总裁在线
     private Date createTime;//添加时间
     private Date updateTime;//修改时间
 
@@ -126,6 +127,14 @@ public class Apply implements Serializable {
         this.remark = remark;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "Apply{" +
@@ -139,6 +148,7 @@ public class Apply implements Serializable {
                 ", manCount=" + manCount +
                 ", remark='" + remark + '\'' +
                 ", status=" + status +
+                ", site=" + site +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

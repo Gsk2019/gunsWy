@@ -71,6 +71,8 @@ public class WebConfig implements WebMvcConfigurer {
 
             //本应用
             registry.addResourceHandler("/assets/**").addResourceLocations("classpath:/assets/");
+
+            registry.addResourceHandler("/images/**").addResourceLocations("file:D:/images/");
         }
     }
 

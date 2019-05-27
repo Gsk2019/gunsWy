@@ -12,7 +12,7 @@ public interface WxUserCouponMapper extends BaseMapper<WxUserCoupon> {
     /**
      * 获取优惠券领取记录
      */
-    Page<Map<String, Object>> getWxUserCouponList(@Param("page") Page page);
+    Page<Map<String, Object>> getWxUserCouponList(@Param("page") Page page,@Param("site") Integer site);
 
     /**
      * 查询是否领取优惠券

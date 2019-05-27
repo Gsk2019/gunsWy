@@ -46,19 +46,21 @@ public class ApplyApi extends BaseController {
     private LoginService loginService;
 
     /**
-     * 用户首次登录是需要更新用户信息
+     * 在线报名
      *
      */
     @PostMapping("")
     public Object doApply(Apply apply,String skey) {
 
+        if(apply.getSite()==null)
+            return ApiResponseUtil.fail409();
         if (apply.getCourseId()==null)
             return ApiResponseUtil.fail409();
 
         WxUser wxUser=loginService.getWxUserBySkey(skey);
         if (wxUser==null)
-            return ApiResponseUtil.fail409();
-        apply.setUserId(wxUser.getId());
+            return ApiResponseUtil.fail401();
+         apply.setUserId(wxUser.getId());
          applyService.doApply(apply);
          return ApiResponseUtil.ok();
     }

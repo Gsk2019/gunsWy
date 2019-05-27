@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.modular.web.controller;
 
 import cn.stylefeng.guns.core.common.page.LayuiPageFactory;
+import cn.stylefeng.guns.core.shiro.ShiroKit;
 import cn.stylefeng.guns.modular.web.entity.Apply;
 import cn.stylefeng.guns.modular.web.service.ApplyService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
@@ -63,7 +64,11 @@ public class ApplyController extends BaseController {
     @RequestMapping(value = "/list")
     @ResponseBody
     public Object list() {
-        Page<Map<String, Object>> list = this.applyService.queryList();
+        Long did=ShiroKit.getUser().getDeptId();//部门id
+        Integer site=1;
+        if (did.equals(1129594787394957314L))//北清总裁在线  1129593519301668865 北清总裁中心
+            site=2;
+        Page<Map<String, Object>> list = this.applyService.queryList(site);
 //        Page<Map<String, Object>> wrap = new NoticeWrapper(list).wrap();
         return LayuiPageFactory.createPageInfo(list);
     }

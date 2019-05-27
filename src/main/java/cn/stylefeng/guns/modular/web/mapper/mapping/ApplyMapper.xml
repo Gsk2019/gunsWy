@@ -14,13 +14,14 @@
         <result column="man_count" property="manCount"/>
         <result column="remark" property="remark"/>
         <result column="status" property="status"/>
+        <result column="site" property="site"/>
         <result column="update_time" property="updateTime"/>
         <result column="create_time" property="createTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id,user_id AS userId ,course_id AS courseId,user_name AS userName,phone,id_card AS idCard,company,man_count AS manCount,remark,status,create_time AS createTime,update_time as updateTime
+        id,user_id AS userId ,course_id AS courseId,user_name AS userName,phone,id_card AS idCard,company,man_count AS manCount,remark,status,site,create_time AS createTime,update_time as updateTime
     </sql>
 
     <select id="queryList"  resultType="map">
@@ -30,7 +31,7 @@
         FROM db_apply a
         LEFT JOIN db_course c ON a.course_id = c.id
         LEFT JOIN db_wxuser u ON a.user_id = u.id
-        WHERE a.`status`=1
+        WHERE a.`status`=1 and a.site=#{site}
         order by a.create_time desc
     </select>
 

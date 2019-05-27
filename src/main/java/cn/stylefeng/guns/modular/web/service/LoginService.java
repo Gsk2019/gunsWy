@@ -41,13 +41,13 @@ public class LoginService extends ServiceImpl<WxUserMapper, WxUser> {
     private RedisTemplate<String, String> redisTemplate;
 
 
-    public Object doLogin(String code){
+    public Object doLogin(String code,Integer site){
 
         Map<String,Object> map = new HashMap<String, Object>();
         Integer isFirst=0;
 
         //post请求获取的SessionAndopenId
-        JSONObject SessionKeyAndOpenIdJson = getSessionKeyOrOpenId( code );
+        JSONObject SessionKeyAndOpenIdJson = getSessionKeyOrOpenId( code,site );
         String openid = SessionKeyAndOpenIdJson.getString("openid" );
         String sessionKey = SessionKeyAndOpenIdJson.getString( "session_key" );
         if (openid==null)
@@ -64,6 +64,7 @@ public class LoginService extends ServiceImpl<WxUserMapper, WxUser> {
             wu.setUpdateTime(new Date());
             wu.setSessionKey(sessionKey);
             wu.setSkey(skey);
+            wu.setSite(site);
             wxUserMapper.insert(wu);
             isFirst=1;
         }else{
@@ -144,13 +145,19 @@ public class LoginService extends ServiceImpl<WxUserMapper, WxUser> {
      * @param code
      * @return
      */
-    public static JSONObject getSessionKeyOrOpenId(String code){
+    public static JSONObject getSessionKeyOrOpenId(String code,Integer site){
         //微信端登录code
         String wxCode = code;
         String requestUrl = "https://api.weixin.qq.com/sns/jscode2session";
         Map<String,String> requestUrlParam = new HashMap<>(  );
-        requestUrlParam.put( "appid","wx0ea2d600620c2346" );//小程序appId
-        requestUrlParam.put( "secret","d19ca6e65c1f8a7184c0eda4fda8e738" );//你的小程序appSecret
+
+        if (site==1){//北清中心
+            requestUrlParam.put( "appid","wx865dac1ee816470b" );//小程序appId
+            requestUrlParam.put( "secret","941671136bdb98ad3bf95fc12875c622" );//你的小程序appSecret
+        }else{//北清在线
+            requestUrlParam.put( "appid","wx01d33b157b80d238" );//小程序appId
+            requestUrlParam.put( "secret","6bf138cbebd0bba62e5e2bb7799a87a3" );//你的小程序appSecret
+        }
         requestUrlParam.put( "js_code",code );//小程序端返回的code
         requestUrlParam.put( "grant_type","authorization_code" );//默认参数
 

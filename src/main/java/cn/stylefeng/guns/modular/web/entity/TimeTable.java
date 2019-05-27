@@ -20,6 +20,7 @@ public class TimeTable implements Serializable {
     private String tableImages;//课表详情图片 小程序用
     private String tableDesc;//课表图文详情
     private Integer status;//0删除 1正常
+    private Integer site;//1北清中心 2北清在线
     private Date createTime;//添加时间
 
     public Integer getId() {
@@ -86,6 +87,14 @@ public class TimeTable implements Serializable {
         this.createTime = createTime;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "TimeTable{" +
@@ -96,6 +105,7 @@ public class TimeTable implements Serializable {
                 ", tableImages='" + tableImages + '\'' +
                 ", tableDesc='" + tableDesc + '\'' +
                 ", status=" + status +
+                ", site=" + site +
                 ", createTime=" + createTime +
                 '}';
     }

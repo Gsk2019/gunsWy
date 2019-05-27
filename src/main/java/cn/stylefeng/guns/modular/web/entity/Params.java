@@ -20,6 +20,7 @@ public class Params implements Serializable {
     private Integer paramType;//参数类型 1常规参数 2图片参数
     private Integer status;//0删除 1正常
     private Integer sortNo;//排序值
+    private Integer site;//
     private Date createTime;//添加时间
     private Date updateTime;//修改时间
 
@@ -95,6 +96,14 @@ public class Params implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "Params{" +
@@ -105,6 +114,7 @@ public class Params implements Serializable {
                 ", paramType=" + paramType +
                 ", status=" + status +
                 ", sortNo=" + sortNo +
+                ", site=" + site +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

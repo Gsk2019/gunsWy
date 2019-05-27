@@ -278,7 +278,7 @@
         //执行实例
         var uploadInst = upload.render({
             elem: '#descUrlButton' //绑定元素
-            ,url: '/file/upload?type=2' //上传接口
+            ,url: '/file/uploadLocal?type=2' //上传接口
             ,accept: 'file' //普通文件
             ,exts: 'doc|docx' //只允许上传压缩文件
             ,done: function(res){
@@ -327,7 +327,7 @@
         //普通图片上传
         var uploadInst = upload.render({
             elem: '#courseImageBtn'
-            , url: '/file/upload'
+            , url: '/file/uploadLocal'
             , before: function (obj) {
                 //预读本地文件示例，不支持ie8
                 obj.preview(function (index, file, result) {
@@ -424,7 +424,7 @@
         // ajax 上传图片
         var upload_num = 0; // 上传图片成功数量
         $('#fileupload').fileupload({
-            url: "/file/uploadMany",
+            url: "/file/uploadManyLocal",
             dataType: 'json',
             add: function (e, data) {
                 $("#goods_picture_box .img-error").hide();

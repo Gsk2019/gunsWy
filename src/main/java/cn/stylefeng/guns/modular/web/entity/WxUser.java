@@ -23,6 +23,7 @@ public class WxUser implements Serializable {
     private String gender;//
     private String nick;//
     private Integer status;//0删除 1正常
+    private Integer site;//1北清中心 2北清在线
     private Date createTime;//添加时间
     private Date updateTime;//修改时间
 
@@ -115,6 +116,14 @@ public class WxUser implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "WxUser{" +
@@ -127,6 +136,7 @@ public class WxUser implements Serializable {
                 ", gender=" + gender +
                 ", nick='" + nick + '\'' +
                 ", status=" + status +
+                ", site=" + site +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 '}';

@@ -34,10 +34,10 @@ public class WxUserCouponService extends ServiceImpl<WxUserCouponMapper, WxUserC
      * @param
      * @return
       */
-    public  Page<Map<String, Object>>  getWxUserCouponList(){
+    public  Page<Map<String, Object>>  getWxUserCouponList(Integer site){
         Page page = LayuiPageFactory.defaultPage();
 
-        return  this.baseMapper.getWxUserCouponList(page);
+        return  this.baseMapper.getWxUserCouponList(page,site);
     }
 
     /**
@@ -46,7 +46,7 @@ public class WxUserCouponService extends ServiceImpl<WxUserCouponMapper, WxUserC
      * @param couponId
      * @return
      */
-    public  boolean  getCoupon(WxUser wxUser, Integer couponId){
+    public  boolean  getCoupon(WxUser wxUser, Integer couponId,Integer site){
 
         List<Map> couponList=wxUserCouponMapper.queryByUserIdAndCouponId(wxUser.getId(),couponId);
         if (couponList!=null && couponList.size()>0)
@@ -55,6 +55,7 @@ public class WxUserCouponService extends ServiceImpl<WxUserCouponMapper, WxUserC
         WxUserCoupon wxUserCoupon=new WxUserCoupon();
         wxUserCoupon.setUserId(wxUser.getId());
         wxUserCoupon.setCouponId(couponId);
+        wxUserCoupon.setSite(site);
         wxUserCoupon.setCreateTime(new Date());
         wxUserCoupon.setUpdateTime(new Date());
         wxUserCouponMapper.insert(wxUserCoupon);

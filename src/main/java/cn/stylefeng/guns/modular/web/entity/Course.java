@@ -27,6 +27,7 @@ public class Course implements Serializable {
     private String descUrl;//招生简章下载地址
     private String joinUrl;//报名表下载地址
     private Integer status;//0删除 1正常
+    private Integer site;//1北清中心  2北清在线
     private Integer sortNo;//排序值
     private Date createTime;//添加时间
 
@@ -150,6 +151,14 @@ public class Course implements Serializable {
         this.sortNo = sortNo;
     }
 
+    public Integer getSite() {
+        return site;
+    }
+
+    public void setSite(Integer site) {
+        this.site = site;
+    }
+
     @Override
     public String toString() {
         return "Course{" +
@@ -164,6 +173,7 @@ public class Course implements Serializable {
                 ", descUrl='" + descUrl + '\'' +
                 ", joinUrl='" + joinUrl + '\'' +
                 ", status='" + status + '\'' +
+                ", site='" + site + '\'' +
                 ", sortNo='" + sortNo + '\'' +
                 ", createTime=" + createTime +
                 '}';
