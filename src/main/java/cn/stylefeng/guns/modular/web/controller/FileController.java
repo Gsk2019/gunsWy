@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package cn.stylefeng.guns.modular.api;
+package cn.stylefeng.guns.modular.web.controller;
 
 import cn.stylefeng.guns.core.util.FileUploadUtil;
 import cn.stylefeng.guns.core.util.OSSClientUtil;
