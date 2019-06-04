@@ -275,7 +275,7 @@
         // ajax 上传图片
         var upload_num = 0; // 上传图片成功数量
         $('#fileupload').fileupload({
-            url: "/file/uploadManyLocal",
+            url: "/file/uploadMany",
             dataType: 'json',
             add: function (e, data) {
                 $("#goods_picture_box .img-error").hide();

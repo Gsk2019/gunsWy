@@ -40,7 +40,7 @@ public class TimeTableService extends ServiceImpl<TimeTableMapper, TimeTable> {
      */
     public List<Map<String,Object>> queryAppListByCourseId(Page page,Integer courseId) {
         List<Map<String,Object>> listMap= timeTableMapper.queryAppListByCourseId(page,courseId);
-        dealMapList(listMap);
+//        dealMapList(listMap);
         return listMap;
     }
 

@@ -84,15 +84,16 @@ public class ParamsService extends ServiceImpl<ParamsMapper, Params> {
      */
     public List<Map<String,Object>> queryListLunBo(Integer site ) {
         List<Map<String,Object>> listMap=this.baseMapper.queryListLunBo(site);
-        for (int i = 0; i < listMap.size(); i++) {
-            Map<String, Object> map =  listMap.get(i);
-            //遍历map中的键
-            for (String key : map.keySet()) {
-                if (map.get(key).toString().indexOf("http")==-1){
-                    map.put(key,"https://app.gaoduanpeixun.cn"+map.get(key));
-                }
-            }
-        }
+//        补全图片地址
+//        for (int i = 0; i < listMap.size(); i++) {
+//            Map<String, Object> map =  listMap.get(i);
+//            //遍历map中的键
+//            for (String key : map.keySet()) {
+//                if (map.get(key).toString().indexOf("http")==-1){
+//                    map.put(key,"https://app.gaoduanpeixun.cn"+map.get(key));
+//                }
+//            }
+//        }
         return listMap;
     }
 
@@ -102,7 +103,7 @@ public class ParamsService extends ServiceImpl<ParamsMapper, Params> {
     public List<Map<String,Object>> queryList(Integer site) {
 
         List<Map<String,Object>> MapList=this.baseMapper.queryList(site);
-        dealMapList(MapList);
+//        dealMapList(MapList);
         return MapList;
     }
 

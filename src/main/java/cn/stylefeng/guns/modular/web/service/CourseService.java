@@ -41,7 +41,7 @@ public class CourseService extends ServiceImpl<CourseMapper, Course> {
     public List<Map<String,Object>> queryListApp(Integer courseType,Integer site) {
 
         List<Map<String,Object>> listMap=this.baseMapper.queryListApp(courseType, site);
-        dealMapList(listMap);
+//        dealMapList(listMap);
         return listMap;
     }
 
@@ -51,7 +51,7 @@ public class CourseService extends ServiceImpl<CourseMapper, Course> {
     public List<Map<String,Object>> queryListAppByType(Page page,Integer courseType,Integer site) {
 
         List<Map<String,Object>> listMap=this.baseMapper.queryListAppByType(page,courseType, site);
-        dealMapList(listMap);
+//        dealMapList(listMap);
         return listMap;
     }
 
